@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RssList</string>
+    <string name="empty_list_message">You have not RSS yet.\nSwipe down to update…</string>
 </resources>

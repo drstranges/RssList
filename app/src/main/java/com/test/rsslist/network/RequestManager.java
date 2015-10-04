@@ -1,11 +1,12 @@
 package com.test.rsslist.network;
 
-import android.content.Context;
 
+import com.test.rsslist.BuildConfig;
 import com.test.rsslist.Config;
 
-import retrofit.Retrofit;
-import retrofit.SimpleXmlConverterFactory;
+import retrofit.RestAdapter;
+import retrofit.converter.SimpleXMLConverter;
+
 
 /**
  * Created on 04.10.2015.
@@ -16,9 +17,10 @@ public class RequestManager {
     private final ApiService mApiService;
 
     private RequestManager() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.API_BASE_URL)
-                .addConverterFactory(SimpleXmlConverterFactory.create())
+        RestAdapter retrofit = new RestAdapter.Builder()
+                .setEndpoint(Config.API_BASE_URL)
+                .setConverter(new SimpleXMLConverter())
+                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .build();
 
         mApiService = retrofit.create(ApiService.class);
@@ -26,7 +28,11 @@ public class RequestManager {
 
     public static RequestManager getInstance(){
         if (INSTANCE == null) {
-            INSTANCE = new RequestManager();
+            synchronized(RequestManager.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new RequestManager();
+                }
+            }
         }
         return INSTANCE;
     }

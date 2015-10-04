@@ -5,5 +5,5 @@ package com.test.rsslist;
  */
 public class Config {
 
-    public static final String API_BASE_URL = "http://www.cbc.ca/cmlink/rss-topstories";
+    public static final String API_BASE_URL = "http://www.cbc.ca/cmlink/rss-topstories/";
 }

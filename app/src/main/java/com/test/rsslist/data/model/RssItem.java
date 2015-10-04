@@ -1,5 +1,7 @@
 package com.test.rsslist.data.model;
 
+import com.google.gson.annotations.Expose;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -15,29 +17,29 @@ import java.util.regex.Pattern;
  */
 
 
-@Root(name = "item")
+@Root(name = "item", strict = false)
 public class RssItem {
     private static final SimpleDateFormat PUB_DATE_FORMAT =
             new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
     private static final String IMG_REGEX = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
     private static final Pattern IMG_PATTERN = Pattern.compile(IMG_REGEX);
 
-    @Element(name = "title", data = true)
+    @Element(name = "title", data = true, required = false)
     private String title;
 
-    @Element(name = "link")
+    @Element(name = "link", required = false)
     private String link;
 
-    @Element(name = "pubDate")
+    @Element(name = "pubDate", required = false)
     private String date;
 
-    @Element(name = "author")
+    @Element(name = "author", required = false)
     private String author;
 
-    @Element(name = "description", data = true)
+    @Element(name = "description", data = true, required = false)
     private String description;
 
-    @Element(required = false)
+    @Expose(serialize = false, deserialize = false)
     private String picture;
 
 

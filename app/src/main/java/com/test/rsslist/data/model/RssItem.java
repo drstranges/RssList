@@ -42,7 +42,6 @@ public class RssItem {
     private String picture;
 
 
-
     public String getTitle() {
         return title;
     }
@@ -60,7 +59,7 @@ public class RssItem {
     }
 
     public String getPicture() {
-        if (picture == null){
+        if (picture == null) {
             picture = getPictureFromDescription();
         }
         return picture;

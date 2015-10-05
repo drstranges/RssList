@@ -13,8 +13,6 @@
         <item name="android:layout_height">@dimen/item_picture_size</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:adjustViewBounds">true</item>
-        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="ItemTitleText" parent="ItemText">

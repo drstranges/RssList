@@ -79,7 +79,7 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.ViewHolder> {
             String picture = item.getPicture();
             Glide.with(itemView.getContext())
                     .load(picture)
-                    .placeholder(android.R.drawable.gallery_thumb)
+                    .placeholder(android.R.drawable.picture_frame)
                     .crossFade()
                     .centerCrop()
                     .into(mImageView);

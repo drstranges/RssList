@@ -1,6 +1,5 @@
 package com.test.rsslist.data.model;
 
-import com.google.gson.annotations.Expose;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -39,7 +38,7 @@ public class RssItem {
     @Element(name = "description", data = true, required = false)
     private String description;
 
-    @Expose(serialize = false, deserialize = false)
+    @Element(required = false)
     private String picture;
 
 

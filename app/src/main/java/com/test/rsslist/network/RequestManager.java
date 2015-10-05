@@ -4,8 +4,8 @@ package com.test.rsslist.network;
 import com.test.rsslist.BuildConfig;
 import com.test.rsslist.Config;
 
-import retrofit.RestAdapter;
-import retrofit.converter.SimpleXMLConverter;
+import retrofit.Retrofit;
+import retrofit.SimpleXmlConverterFactory;
 
 
 /**
@@ -17,10 +17,10 @@ public class RequestManager {
     private final ApiService mApiService;
 
     private RequestManager() {
-        RestAdapter retrofit = new RestAdapter.Builder()
-                .setEndpoint(Config.API_BASE_URL)
-                .setConverter(new SimpleXMLConverter())
-                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.API_BASE_URL)
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+//                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .build();
 
         mApiService = retrofit.create(ApiService.class);

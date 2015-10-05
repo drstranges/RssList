@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment android:id="@+id/fragment_rss_list"
-          android:name="com.test.rsslist.ui.fragment.RssListFragment"
+<fragment android:id="@+id/fragment_web_view"
+          android:name="com.test.rsslist.ui.fragment.DetailFragment"
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          tools:layout="@layout/fragment_rss_list"/>
+          tools:layout="@layout/fragment_detail"/>

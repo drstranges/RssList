@@ -1,5 +1,6 @@
 package com.test.rsslist.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import com.test.rsslist.R;
 import com.test.rsslist.data.model.ApiResponse;
 import com.test.rsslist.data.model.Rss;
 import com.test.rsslist.data.model.RssItem;
+import com.test.rsslist.ui.activity.DetailActivity;
+import com.test.rsslist.ui.adapter.OnItemClickListener;
 import com.test.rsslist.ui.adapter.RssAdapter;
 import com.test.rsslist.ui.loader.RssLoader;
 
@@ -28,11 +31,11 @@ import java.util.List;
  * Created on 04.10.2015.
  */
 public class RssListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
-        LoaderManager.LoaderCallbacks<ApiResponse> {
+        LoaderManager.LoaderCallbacks<ApiResponse>,OnItemClickListener {
 
     private static final String LOG_TAG = "RssListFragment";
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RssAdapter mAdapter;
     private List<RssItem> mRssItems = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -68,9 +71,11 @@ public class RssListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         if (mAdapter == null) {
             mAdapter = new RssAdapter(mRssItems);
         }
+        mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
-
     }
+
+
 
     @Override
     public void onRefresh() {
@@ -122,4 +127,14 @@ public class RssListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mEmptyMessage.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public void onItemClicked(int position) {
+        if (mRssItems == null || mRssItems.size() < position) return;
+
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        RssItem item = mRssItems.get(position);
+        DetailActivity.prepareExtra(intent, item.getTitle(), item.getLink());
+
+        startActivity(intent);
+    }
 }

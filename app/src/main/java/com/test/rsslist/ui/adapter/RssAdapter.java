@@ -26,6 +26,7 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.ViewHolder> {
             SimpleDateFormat.getDateTimeInstance();
 
     private final List<RssItem> mData;
+    private OnItemClickListener mOnItemClickListener;
 
     public RssAdapter(List<RssItem> data) {
         mData = data;
@@ -35,8 +36,7 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_rss, parent, false);
-        ViewHolder vh = new ViewHolder(view);
-        return vh;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -49,7 +49,12 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.ViewHolder> {
         return mData == null ? 0 : mData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemClickListener(
+            OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView mImageView;
         public TextView mTitle;
         public TextView mDate;
@@ -61,6 +66,7 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.ViewHolder> {
             mTitle = (TextView) itemView.findViewById(R.id.text_title);
             mDate = (TextView) itemView.findViewById(R.id.text_date);
             mAuthor = (TextView) itemView.findViewById(R.id.text_author);
+            itemView.setOnClickListener(this);
         }
 
         public void onBind(RssItem item) {
@@ -87,6 +93,17 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.ViewHolder> {
 
         private String formatDate(Date date) {
             return date == null ? null : DATE_FORMAT.format(date);
+        }
+
+        @Override
+        public void onClick(View v) {
+            performOnItemClick(getAdapterPosition());
+        }
+    }
+
+    private void performOnItemClick(int position) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClicked(position);
         }
     }
 }
